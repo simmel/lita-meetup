@@ -1,12 +1,10 @@
 require "lita"
 
-Lita.load_locales Dir[File.expand_path(
-  File.join("..", "..", "locales", "*.yml"), __FILE__
-)]
+module Lita
+  module Handlers
+    class MeetupRsvps < Handler
+    end
 
-require "lita/handlers/meetup_rsvps"
-
-Lita::Handlers::MeetupRsvps.template_root File.expand_path(
-  File.join("..", "..", "templates"),
- __FILE__
-)
+    Lita.register_handler(MeetupRsvps)
+  end
+end
