@@ -1,4 +1,5 @@
 require "lita"
+require 'json'
 
 module Lita
   module Handlers
@@ -26,8 +27,20 @@ module Lita
 
       def find_new_events(payload)
         config.events.each do |room, meetups|
-          p room
+          log.debug "Finding new events for room '#{room}' on meetups: #{meetups}"
+          meetups.each do |meetup|
+            events = get_current_events_for meetup
+
+          end
         end
+      end
+
+      def get_current_events_for(meetup)
+        JSON.parse(
+          http.get(
+            "https://api.meetup.com/2/events?group_urlname=#{meetup}&page=20&key=#{config.api_key}"
+          ).body
+        )["results"]
       end
 
       # * Poll for new events
