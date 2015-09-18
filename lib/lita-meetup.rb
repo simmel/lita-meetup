@@ -18,6 +18,7 @@ module Lita
       # FIXME How does this work with reconnection? Remove the timer on
       # disconnect?
       on :connected, :poll_for_new_events
+      route(/a/, :find_new_events)
 
       def poll_for_new_events(payload)
         find_new_events payload
