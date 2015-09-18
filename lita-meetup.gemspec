@@ -1,11 +1,11 @@
 Gem::Specification.new do |spec|
-  spec.name          = "lita-meetup-rsvps"
+  spec.name          = "lita-meetup"
   spec.version       = "0.1.0"
   spec.authors       = ["Simon Lundström"]
   spec.email         = ["simmel@soy.se"]
-  spec.description   = "Get updated on RSVPs in the channel for your Meetup events"
-  spec.summary       = "Get RSVP updates on Meetup events"
-  spec.homepage      = "https://github.com/simmel/lita-meetup-rsvps"
+  spec.description   = "Get updated on RSVPs and comments in the channel for your Meetup events"
+  spec.summary       = "Get RSVP updates and comments on Meetup events"
+  spec.homepage      = "https://github.com/simmel/lita-meetup"
   spec.license       = "ISC license"
   spec.metadata      = { "lita_plugin_type" => "handler" }
 

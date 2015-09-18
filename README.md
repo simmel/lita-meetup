@@ -1,13 +1,13 @@
-# lita-meetup-rsvps
+# lita-meetup
 
 TODO: Add a description of the plugin.
 
 ## Installation
 
-Add lita-meetup-rsvps to your Lita instance's Gemfile:
+Add lita-meetup to your Lita instance's Gemfile:
 
 ``` ruby
-gem "lita-meetup-rsvps"
+gem "lita-meetup"
 ```
 
 ## Configuration

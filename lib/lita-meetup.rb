@@ -2,7 +2,7 @@ require "lita"
 
 module Lita
   module Handlers
-    class MeetupRsvps < Handler
+    class Meetup < Handler
     end
 
     # How often we should poll for new events/meetups from your groups.
@@ -37,6 +37,6 @@ module Lita
     #   end
     # end
 
-    Lita.register_handler(MeetupRsvps)
+    Lita.register_handler(Meetup)
   end
 end
