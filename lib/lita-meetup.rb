@@ -15,6 +15,14 @@ module Lita
       # output it in.
       config :api_key, type: String, required: true
 
+      # FIXME How does this work with reconnection? Remove the timer on
+      # disconnect?
+      on :connected, :poll_for_new_events
+
+      def poll_for_new_events(payload)
+        find_new_events payload
+      end
+
       # * Poll for new events
       # * Compare the events received with the ones stored in redis
       # * Send triggers for the events which weren't in redis
