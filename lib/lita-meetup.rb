@@ -23,6 +23,12 @@ module Lita
         find_new_events payload
       end
 
+      def find_new_events(payload)
+        config.events.each do |room, meetups|
+          p room
+        end
+      end
+
       # * Poll for new events
       # * Compare the events received with the ones stored in redis
       # * Send triggers for the events which weren't in redis
