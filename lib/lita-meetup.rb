@@ -11,6 +11,10 @@ module Lita
       # output it in.
       config :events, type: Hash, required: true
 
+      # Your Meetup API key
+      # output it in.
+      config :api_key, type: String, required: true
+
       # * Poll for new events
       # * Compare the events received with the ones stored in redis
       # * Send triggers for the events which weren't in redis
@@ -20,7 +24,7 @@ module Lita
       # ** Save the current event in redis
       #
       # http://www.meetup.com/meetup_api/docs/2/events/
-      # https://api.meetup.com/2/events?group_urlname=STHLM-Lounge-Hackers&page=20&key=7714627f7e7d61275a161303b3e3332
+      # https://api.meetup.com/2/events?group_urlname=STHLM-Lounge-Hackers&page=20&key=#{config.api_key}
       #
       # http://www.meetup.com/meetup_api/docs/stream/2/rsvps/#http
       # http://stream.meetup.com/2/rsvps?event_id=XXX&since_mtime=restart_from
