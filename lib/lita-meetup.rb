@@ -31,6 +31,7 @@ module Lita
           meetups.each do |meetup|
             events = get_current_events_for meetup
 
+            events.select! { |event| event["status"] == "upcoming" }
           end
         end
       end
