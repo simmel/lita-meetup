@@ -1,6 +1,7 @@
 # lita-meetup
 
-TODO: Add a description of the plugin.
+This plugin notifies rooms when configured Meetups announces new events and
+when people RSVP or comment in them.
 
 ## Installation
 
@@ -16,4 +17,4 @@ TODO: Describe any configuration attributes the plugin exposes.
 
 ## Usage
 
-TODO: Describe the plugin's features and how to use them.
+Configure your events in your rooms and just kick back and relax.
