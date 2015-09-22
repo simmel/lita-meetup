@@ -21,6 +21,8 @@ module Lita
       on :connected, :poll_for_new_events
       route(/a/, :find_new_events)
 
+      on :meetup_subscribe_events, :meetup_subscribe_events
+
       def poll_for_new_events(payload)
         find_new_events payload
       end
@@ -32,7 +34,27 @@ module Lita
             events = get_current_events_for meetup
 
             events.select! { |event| event["status"] == "upcoming" }
+
+            events.each do |event|
+              # If event_id isn't already subscribed to, do it.
+              if redis.lrem(room, 0, event["id"]) == 0
+                robot.trigger(:meetup_subscribe_events, event_id: event["id"], room: room)
+              else
+                # If it is, put it back.
+                redis.lpush room, event["id"]
+              end
+            end
           end
+        end
+      end
+
+      def meetup_subscribe_events(payload)
+        log.info "Subscribing to event #{payload[:event_id]} for #{payload[:room]}"
+        robot.trigger(:meetup_subscribe_rsvps, event_id: payload[:event_id], room: payload[:room])
+        robot.trigger(:meetup_subscribe_comments, event_id: payload[:event_id], room: payload[:room])
+        redis.multi do
+          redis.lrem payload[:room], 0, payload[:event_id]
+          redis.lpush payload[:room], payload[:event_id]
         end
       end
 
