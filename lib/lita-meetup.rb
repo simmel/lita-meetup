@@ -37,11 +37,8 @@ module Lita
 
             events.each do |event|
               # If event_id isn't already subscribed to, do it.
-              if redis.lrem(room, 0, event["id"]) == 0
+              if ! redis.sismember(room, event["id"])
                 robot.trigger(:meetup_subscribe_events, event_id: event["id"], room: room)
-              else
-                # If it is, put it back.
-                redis.lpush room, event["id"]
               end
             end
           end
@@ -52,10 +49,7 @@ module Lita
         log.info "Subscribing to event #{payload[:event_id]} for #{payload[:room]}"
         robot.trigger(:meetup_subscribe_rsvps, event_id: payload[:event_id], room: payload[:room])
         robot.trigger(:meetup_subscribe_comments, event_id: payload[:event_id], room: payload[:room])
-        redis.multi do
-          redis.lrem payload[:room], 0, payload[:event_id]
-          redis.lpush payload[:room], payload[:event_id]
-        end
+        redis.sadd payload[:room], payload[:event_id]
       end
 
       def get_current_events_for(meetup)
