@@ -22,6 +22,8 @@ module Lita
       route(/a/, :find_new_events)
 
       on :meetup_subscribe_events, :meetup_subscribe_events
+      on :meetup_subscribe_rsvps, :meetup_subscribe_rsvps
+      on :meetup_subscribe_comments, :meetup_subscribe_comments
 
       def poll_for_new_events(payload)
         find_new_events payload
@@ -50,6 +52,14 @@ module Lita
         robot.trigger(:meetup_subscribe_rsvps, event_id: payload[:event_id], room: payload[:room])
         robot.trigger(:meetup_subscribe_comments, event_id: payload[:event_id], room: payload[:room])
         redis.sadd payload[:room], payload[:event_id]
+      end
+
+      def meetup_subscribe_rsvps(payload)
+        log.debug "Subscribing to RSVPs on event #{payload[:event_id]} for #{payload[:room]}"
+      end
+
+      def meetup_subscribe_comments(payload)
+        log.debug "Subscribing to comments on event #{payload[:event_id]} for #{payload[:room]}"
       end
 
       def get_current_events_for(meetup)
