@@ -53,7 +53,7 @@ module Lita
         log.info "Unsubscribing from all events"
         config.events.each do |room, meetups|
           log.debug "Deleting events for room '#{room}'"
-          redis.del payload[:room]
+          redis.del room
         end
       end
 
