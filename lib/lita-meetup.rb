@@ -19,6 +19,7 @@ module Lita
       # FIXME How does this work with reconnection? Remove the timer on
       # disconnect?
       on :connected, :poll_for_new_events
+      on :shut_down_started, :unsubscribe_to_all_events
       route(/a/, :find_new_events)
 
       on :meetup_subscribe_events, :meetup_subscribe_events
@@ -44,6 +45,14 @@ module Lita
               end
             end
           end
+        end
+      end
+
+      def unsubscribe_to_all_events(payload)
+        log.info "Unsubscribing from all events"
+        config.events.each do |room, meetups|
+          log.debug "Deleting events for room '#{room}'"
+          redis.del payload[:room]
         end
       end
 
