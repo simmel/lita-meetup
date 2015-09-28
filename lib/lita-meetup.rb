@@ -27,6 +27,7 @@ module Lita
       on :meetup_subscribe_comments, :meetup_subscribe_comments
 
       def poll_for_new_events(payload)
+        unsubscribe_to_all_events payload
         find_new_events payload
       end
 
